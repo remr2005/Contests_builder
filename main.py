@@ -1,6 +1,3 @@
-from cryptography.fernet import Fernet
-import base64
-code = bytes("""
 import customtkinter as ctk
 import os
 from tkinter import filedialog
@@ -67,7 +64,7 @@ class App(ctk.CTk):
         # Пост-скриптум
         ctk.CTkLabel(self,
                      bg_color="black",
-                     text="Программа рассчитана на то, что вы нумеруйте свои файлы, например: 1.cpp,2.go и т.д.\\nКроме того ручная работа всё ещё присутствует, так как вам нужно будет вводить  наз-\\nвание заданий самостоятельно(мне лень заниматься парсингом)"
+                     text="Программа рассчитана на то, что вы нумеруйте свои файлы, например: 1.cpp,2.go и т.д.\nКроме того ручная работа всё ещё присутствует, так как вам нужно будет вводить  наз-\nвание заданий самостоятельно(мне лень заниматься парсингом)"
                      ).place(relx=0.1, rely=0.6, relwidth=0.8, relheight=0.39)
         self.link_entry = ctk.CTkEntry(self, textvariable="")
 
@@ -82,7 +79,7 @@ class App(ctk.CTk):
         self.out_entry.insert(0, path)
     def make_project(self,event):
         i = 1
-        md_txt = "|[Контест " + self.num_entry.get() +"](" + self.link_entry.get() + ") |  | \\n| --- | :-: |\\n"
+        md_txt = "|[Контест " + self.num_entry.get() +"](" + self.link_entry.get() + ") |  | \n| --- | :-: |\n"
         pat = self.out_entry.get()
         #pat = pat.replace("/","\\\\")
         os.chdir(pat)
@@ -98,7 +95,7 @@ class App(ctk.CTk):
             str_i = self.double_num(i)
             os.mkdir(str_i)
             shutil.copy(string,pat + '/'+ path + '/' +str_i + '/' + "main."+a[1])
-            md_txt+="| [" + str(i) +". Название](./contest_" + self.double_num(int(self.num_entry.get())) + "/"+ str_i +"/main."+a[1]+") | ![](./img/" + a[1] + ".png) |\\n"
+            md_txt+="| [" + str(i) +". Название](./contest_" + self.double_num(int(self.num_entry.get())) + "/"+ str_i +"/main."+a[1]+") | ![](./img/" + a[1] + ".png) |\n"
             i+=1
         os.chdir(pat)
         my_file = open("ReadMe.txt", "w+")
@@ -111,9 +108,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-""", 'utf-8')
-key = Fernet.generate_key()
-encruption_type = Fernet(key)
-encrypted_message = encruption_type.encrypt(code)
-dec_message = encruption_type.decrypt(encrypted_message)
-exec(dec_message)
+
